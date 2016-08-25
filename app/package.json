@@ -1,0 +1,25 @@
+{
+  "name": "Paper-Notes",
+  "productName": "Paper-Notes",
+  "description": "Paper. Notes.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/bensherlock/paper-notes",
+  "author": {
+    "name": "Ben Sherlock",
+    "email": "papernotes@bensherlock.co.uk",
+    "url": "http://bensherlock.co.uk/"
+  },
+  "main": "main.js",
+  "electronVersion": "1.0.0",
+  "dependencies": {
+    "electron-debug": "^1",
+    "devtron": "^1.1",
+    "lodash": "^4"
+  },
+  "config": {
+    "url": "index.html",
+    "update": {
+      "url": false
+    }
+  }
+}
