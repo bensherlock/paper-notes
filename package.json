@@ -98,6 +98,7 @@
     "dependency-check": "^2.5",
     "electron-builder": "^3",
     "electron-prebuilt": "^1",
+    "electron-is-dev" : "0.1.2",
     "istanbul": "^0.4",
     "mocha": "^2.4",
     "pre-commit": "^1.1",
