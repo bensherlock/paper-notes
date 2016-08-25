@@ -10,7 +10,7 @@ const pjson = require('./package.json')
 const _ = require('lodash')
 
 // Use system log facility, should work on Windows too
-require('./lib/log')(pjson.productName || 'SkelEktron')
+require('./lib/log')(pjson.productName || 'Paper-Notes')
 
 // Manage unhandled exceptions as early as possible
 process.on('uncaughtException', (e) => {
@@ -50,7 +50,7 @@ let mainWindow
 // Other windows we may need
 let infoWindow = null
 
-app.setName(pjson.productName || 'SkelEktron')
+app.setName(pjson.productName || 'Paper-Notes')
 
 function initialize () {
   var shouldQuit = makeSingleInstance()

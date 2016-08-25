@@ -13,6 +13,7 @@
   "electronVersion": "1.0.0",
   "dependencies": {
     "electron-debug": "^1",
+    "electron-is-dev" : "^0.1.2",
     "devtron": "^1.1",
     "lodash": "^4"
   },
