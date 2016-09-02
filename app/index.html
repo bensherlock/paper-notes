@@ -34,10 +34,38 @@
         </p>
       </footer>
     </div>
+
+    <section class="paperapp">
+			<header class="header">
+				<h1>papers</h1>
+				<input class="new-paper" placeholder="Paper Title" autofocus>
+			</header>
+			<section class="main">
+				<ul class="paper-list"></ul>
+			</section>
+			<footer class="footer"></footer>
+		</section>
+
+    <script type="text/template" id="item-template">
+			<div class="view">
+				<label><%- title %></label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="<%- title %>">
+		</script>
+
+    <script src="assets/js/models/paper.js"></script>
+    <script src="assets/js/collections/papers.js"></script>
+    <script src="assets/js/views/paper-view.js"></script>
+    <script src="assets/js/views/app-view.js"></script>
+
   </body>
   <script>
     // You can also require other files to run in this process
     require('./assets/js/ex-links.js')
     require('./assets/js/notifications.js')
+
+
+
   </script>
 </html>
