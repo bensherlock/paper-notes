@@ -1,13 +1,14 @@
 var Backbone = require('backbone')
 var _ = require('underscore')
+var $ = require('jquery')
 
 var AppView = Backbone.View.extend({
   el: $("#paperapp"),
 
-  statsTemplate: _.template($('#stats-template').html()),
+  //statsTemplate: _.template($('#stats-template').html()),
 
   events: {
-    "keypress #new-todo":  "createOnEnter",
+    "keypress #new-paper":  "createOnEnter",
   },
 
   initialize: function() {
@@ -35,7 +36,7 @@ var AppView = Backbone.View.extend({
     }
   },
 
-  addOne: function(todo) {
+  addOne: function(paper) {
     var view = new PaperView({model: paper});
     this.$("#paper-list").append(view.render().el);
   },

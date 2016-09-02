@@ -8,4 +8,7 @@ var Paper = Backbone.Model.extend({
         title: ""
       };
     },
+
+    //urlRoot: '/api/pages',
+    //localStorage: true
 });
