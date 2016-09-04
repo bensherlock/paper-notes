@@ -1,6 +1,7 @@
 var Backbone = require('backbone')
 var _ = require('underscore')
-var $ = require('jquery')
+//var $ = require('jquery')
+var $ = window.$;
 
 var PaperView = Backbone.View.extend({
   tagName: "li",
@@ -16,14 +17,21 @@ var PaperView = Backbone.View.extend({
     },
 
     initialize: function() {
+      console.log('PaperView::initialize');
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
     },
 
     render: function() {
+      console.log('PaperView::render model=' + JSON.stringify(this.model));
+      console.log('Template=' + this.template(this.model.toJSON()));
+      console.log('el=' + this.el);
+      //alert(this.el + ' ');
       this.$el.html(this.template(this.model.toJSON()));
+      //this.$el.html(this.template(this.model.attributes));
       //this.$el.toggleClass('done', this.model.get('done'));
       this.input = this.$('.edit');
+
       return this;
     },
 

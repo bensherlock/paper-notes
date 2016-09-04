@@ -1,6 +1,7 @@
 var Backbone = require('backbone')
 var _ = require('underscore')
-var $ = require('jquery')
+//var $ = require('jquery')
+var $ = window.$;
 
 var AppView = Backbone.View.extend({
   el: $("#paperapp"),
@@ -12,7 +13,7 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function() {
-
+    console.log('AppView::initialize');
     this.input = this.$("#new-paper");
 
     this.listenTo(Papers, 'add', this.addOne);
@@ -20,16 +21,25 @@ var AppView = Backbone.View.extend({
     this.listenTo(Papers, 'all', this.render);
 
     this.footer = this.$('footer');
-    this.main = $('#main');
+    this.main = this.$('#main');
 
+
+    // Fecth from server/db
     Papers.fetch();
+
+    // Delete all existing first
+    _.invoke(Papers.toArray(), 'destroy');
+
+    // Insert a new paper into the papers (and sync)
+    Papers.create( {title: 'A paper title'} );
   },
 
   render: function() {
+    console.log('AppView::render Papers.length=' + Papers.length);
     if (Papers.length) {
       this.main.show();
       this.footer.show();
-      this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
+      //this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
     } else {
       this.main.hide();
       this.footer.hide();
@@ -37,6 +47,7 @@ var AppView = Backbone.View.extend({
   },
 
   addOne: function(paper) {
+    console.log('AppView::addOne paper=' + JSON.stringify(paper));
     var view = new PaperView({model: paper});
     this.$("#paper-list").append(view.render().el);
   },

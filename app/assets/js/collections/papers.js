@@ -1,6 +1,7 @@
 var Backbone = require('backbone')
 require('backbone.localstorage')
 
+
 var PaperList = Backbone.Collection.extend({
   model: Paper,
 

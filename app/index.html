@@ -4,71 +4,88 @@
     <meta charset="utf-8">
     <title>Hello World!</title>
     <link rel="stylesheet" href="assets/css/app.css">
+
+    <!-- http://electron.atom.io/docs/faq/ -->
+    <!--
+    <script>
+      window.nodeRequire = require;
+      delete window.require;
+      delete window.exports;
+      delete window.module;
+    </script>
+  -->
+
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Hello World!</h1>
-      </header>
-      <section class="main">
-        <h2>Paper-Notes Starter For Ten</h2>
 
-        <h3>Core Features</h3>
+      <section class="paperapp">
+  			<header class="header">
+  				<h1>papers</h1>
+  				<input class="new-paper" placeholder="Paper Title" autofocus>
+  			</header>
+  			<section class="main">
+  				<ul class="paper-list"></ul>
+  			</section>
+  			<footer class="footer"></footer>
+  		</section>
 
-        <ul>
-          <li>A smart cross-platform logger</li>
-          <li>A ready-to-go auto updater (you just need to hook in a <a href="https://github.com/ArekSredzki/electron-release-server">working server</a>)</li>
-          <li>Built-in support for <a href="https://www.npmjs.com/package/electron-builder">Electron Builder</a></li>
-          <li>Built-in support for different <em>build targets</em> (ie. release, debug, test, etc) with different settings</li>
-          <li>Optional printer management, provided by <a href="https://www.npmjs.com/package/printer">printer</a></li>
-        </ul>
-      </section>
-      <footer>
-        <p>
-          <small>
-            <!-- All of the Node.js APIs are available in this renderer process. -->
-            We are using node <script>document.write(process.versions.node)</script>,
-            Chromium <script>document.write(process.versions.chrome)</script>,
-            and Electron <script>document.write(process.versions.electron)</script>.
-          </small>
-        </p>
-      </footer>
-    </div>
+      <script type="text/template" id="item-template">
+  			<div class="view">
+  				<label><%- title %></label>
+  				<button class="destroy"></button>
+  			</div>
+  			<input class="edit" value="<%- title %>">
+  		</script>
 
-    <section class="paperapp">
-			<header class="header">
-				<h1>papers</h1>
-				<input class="new-paper" placeholder="Paper Title" autofocus>
-			</header>
-			<section class="main">
-				<ul class="paper-list"></ul>
-			</section>
-			<footer class="footer"></footer>
-		</section>
+      <p>
+        <small>
+          <!-- All of the Node.js APIs are available in this renderer process. -->
+          We are using node <script>document.write(process.versions.node)</script>,
+          Chromium <script>document.write(process.versions.chrome)</script>,
+          and Electron <script>document.write(process.versions.electron)</script>.
+        </small>
+      </p>
 
-    <script type="text/template" id="item-template">
-			<div class="view">
-				<label><%- title %></label>
-				<button class="destroy"></button>
-			</div>
-			<input class="edit" value="<%- title %>">
-		</script>
-
-    <script src="assets/js/models/paper.js"></script>
-    <script src="assets/js/collections/papers.js"></script>
-    <script src="assets/js/views/paper-view.js"></script>
-    <script src="assets/js/views/app-view.js"></script>
-    <script src="assets/js/views/app-view.js"></script>
-    <script type="text/javascript" src="node_modules/backbone/backbone.js"></script>
-    <script type="text/javascript" src="node_modules/backbone.localstorage/backbone.localStorage.js"></script>
 
   </body>
+
+  <!-- http://stackoverflow.com/a/37480521/209647 -->
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+  <!-- normal script imports etc  -->
+  <script>
+    window.$ = require('jquery');
+  </script>
+
+  <!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
+
+
   <script>
     // You can also require other files to run in this process
-    require('./assets/js/ex-links.js')
-    require('./assets/js/notifications.js')
+    require('./assets/js/ex-links.js');
+    require('./assets/js/notifications.js');
 
+    // Backbone
+    require('backbone');
+    require('backbone.localStorage');
 
 
   </script>
+  <script src="./assets/js/models/paper.js"></script>
+  <script src="./assets/js/collections/papers.js"></script>
+  <script src="./assets/js/views/paper-view.js"></script>
+  <script src="./assets/js/views/app-view.js"></script>
+
+
+  <!-- In Electron, this is the correct way to include jQuery -->
+  <!--
+  <script>
+    window.$ = window.jQuery = nodeRequire('jquery');
+    console.log( [$, jQuery ]);
+  </script>
+-->
+
+
 </html>
