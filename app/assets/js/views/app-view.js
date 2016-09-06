@@ -4,6 +4,7 @@ var _ = require('underscore')
 var $ = window.$;
 
 var AppView = Backbone.View.extend({
+
   el: $("#paperapp"),
 
   //statsTemplate: _.template($('#stats-template').html()),
@@ -23,6 +24,7 @@ var AppView = Backbone.View.extend({
     this.footer = this.$('footer');
     this.main = this.$('#main');
 
+    console.log('this.main=' + this.main)
 
     // Fecth from server/db
     Papers.fetch();
@@ -50,6 +52,8 @@ var AppView = Backbone.View.extend({
     console.log('AppView::addOne paper=' + JSON.stringify(paper));
     var view = new PaperView({model: paper});
     this.$("#paper-list").append(view.render().el);
+    console.log('paperlist=' + this.$("#paper-list"))
+    console.log('paperapp=' + $(this.el).tagName);
   },
 
   addAll: function() {

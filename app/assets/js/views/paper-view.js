@@ -25,7 +25,7 @@ var PaperView = Backbone.View.extend({
     render: function() {
       console.log('PaperView::render model=' + JSON.stringify(this.model));
       console.log('Template=' + this.template(this.model.toJSON()));
-      console.log('el=' + this.el);
+      console.log('el=' + this.el.tagName);
       //alert(this.el + ' ');
       this.$el.html(this.template(this.model.toJSON()));
       //this.$el.html(this.template(this.model.attributes));
