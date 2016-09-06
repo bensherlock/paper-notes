@@ -1,21 +1,27 @@
+
+
 var Backbone = require('backbone')
 var _ = require('underscore')
 //var $ = require('jquery')
 var $ = window.$;
 
+
 var AppView = Backbone.View.extend({
 
-  el: $("#paperapp"),
+  el: $('#paperapp'),
+  //el: function(){ return $('#paperapp') },
+
 
   //statsTemplate: _.template($('#stats-template').html()),
 
   events: {
-    "keypress #new-paper":  "createOnEnter",
+    'keypress #new-paper':  'createOnEnter',
+    'click #new-paper' : 'showAlert',
   },
 
   initialize: function() {
-    console.log('AppView::initialize');
-    this.input = this.$("#new-paper");
+    console.log('AppView::initialize DOMisReady=' + $.isReady);
+    this.input = this.$('#new-paper');
 
     this.listenTo(Papers, 'add', this.addOne);
     this.listenTo(Papers, 'reset', this.addAll);
@@ -54,7 +60,7 @@ var AppView = Backbone.View.extend({
     this.$("#paper-list").append(view.render().el);
     console.log('paperlist=' + this.$("#paper-list"))
     console.log('paperapp=' + this.get_type($(this.el)));
-    document.write(view.render().el.innerHTML);
+    //document.write(view.render().el.innerHTML);
     //console.log('view.render().el=' + this.get_type(view.render().el));
   },
 
@@ -63,6 +69,7 @@ var AppView = Backbone.View.extend({
   },
 
   createOnEnter: function(e) {
+    console.log('AppView::createOnEnter e=' + e.keyCode);
     if (e.keyCode != 13) return;
     if (!this.input.val()) return;
 
@@ -77,6 +84,14 @@ var AppView = Backbone.View.extend({
     return thing.constructor.name;
   },
 
+  showAlert : function() {
+    alert('You clicked me');
+  }
+
 });
 
-var appview = new AppView;
+
+$(document).ready(function(){
+//$(function(){
+  var appview = new AppView();
+});
