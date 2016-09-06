@@ -1,6 +1,7 @@
 var Backbone = require('backbone')
 require('backbone.localstorage')
 
+var $ = window.$;
 
 var PaperList = Backbone.Collection.extend({
   model: Paper,
@@ -18,4 +19,7 @@ var PaperList = Backbone.Collection.extend({
   comparator: 'order'
 });
 
-var Papers = new PaperList;
+
+//$(document).ready(function(){
+  var Papers = new PaperList;
+//});

@@ -5,6 +5,7 @@ var _ = require('underscore')
 //var $ = require('jquery')
 var $ = window.$;
 
+$(document).ready(function(){
 
 var AppView = Backbone.View.extend({
 
@@ -20,7 +21,12 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function() {
+    _.bindAll(this, 'render', 'addOne', 'addAll', 'createOnEnter', 'showAlert');
+
     console.log('AppView::initialize DOMisReady=' + $.isReady);
+
+
+
     this.input = this.$('#new-paper');
 
     this.listenTo(Papers, 'add', this.addOne);
@@ -91,7 +97,7 @@ var AppView = Backbone.View.extend({
 });
 
 
-$(document).ready(function(){
+//$(document).ready(function(){
 //$(function(){
   var appview = new AppView();
 });

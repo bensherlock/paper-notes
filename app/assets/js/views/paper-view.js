@@ -3,6 +3,8 @@ var _ = require('underscore')
 //var $ = require('jquery')
 var $ = window.$;
 
+$(document).ready(function(){
+
 var PaperView = Backbone.View.extend({
   tagName: "li",
 
@@ -57,4 +59,6 @@ var PaperView = Backbone.View.extend({
     clear: function() {
       this.model.destroy();
     }
+});
+
 });

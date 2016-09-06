@@ -1,5 +1,7 @@
 var Backbone = require('backbone')
 
+var $ = window.$;
+
 var Paper = Backbone.Model.extend({
   defaults: function() {
       return {
