@@ -24,7 +24,7 @@ var AppView = Backbone.View.extend({
     this.footer = this.$('footer');
     this.main = this.$('#main');
 
-    console.log('this.main=' + this.main)
+    console.log('this.main=' + this.get_type(this.main))
 
     // Fecth from server/db
     Papers.fetch();
@@ -53,7 +53,9 @@ var AppView = Backbone.View.extend({
     var view = new PaperView({model: paper});
     this.$("#paper-list").append(view.render().el);
     console.log('paperlist=' + this.$("#paper-list"))
-    console.log('paperapp=' + $(this.el).tagName);
+    console.log('paperapp=' + this.get_type($(this.el)));
+    document.write(view.render().el.innerHTML);
+    //console.log('view.render().el=' + this.get_type(view.render().el));
   },
 
   addAll: function() {
@@ -66,6 +68,13 @@ var AppView = Backbone.View.extend({
 
     Papers.create({title: this.input.val()});
     this.input.val('');
+  },
+
+
+  get_type: function(thing) {
+    if(thing===null)return "[object Null]"; // special case
+    //return Object.prototype.toString.call(thing);
+    return thing.constructor.name;
   },
 
 });
