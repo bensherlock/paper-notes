@@ -1,4 +1,6 @@
 var Backbone = require('backbone')
+
+// Local Storage - Load the data in from a user file
 require('backbone.localstorage')
 
 var $ = window.$;
@@ -10,6 +12,7 @@ var PaperList = Backbone.Collection.extend({
   //localStorage: true,
   //url: 'http://rest.com/api/',
   //localStorage: new Store('papers-backbone'),
+  //url: '/papers',
 
   nextOrder: function() {
     if(!this.length) return 1;
@@ -19,7 +22,4 @@ var PaperList = Backbone.Collection.extend({
   comparator: 'order'
 });
 
-
-//$(document).ready(function(){
-  var Papers = new PaperList;
-//});
+var Papers = new PaperList;

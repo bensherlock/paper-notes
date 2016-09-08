@@ -11,6 +11,5 @@ var Paper = Backbone.Model.extend({
       };
     },
 
-    //urlRoot: '/api/pages',
-    //localStorage: true
+    //urlRoot: '/papers',
 });

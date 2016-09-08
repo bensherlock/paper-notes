@@ -6,7 +6,7 @@ var $ = window.$;
 //'#' = id, '.'=class
 
 var PaperView = Backbone.View.extend({
-  tagName: "li",
+  tagName: "div",
 
   template: _.template($('#item-template').html()),
 
@@ -19,16 +19,15 @@ var PaperView = Backbone.View.extend({
     },
 
     initialize: function() {
-      console.log('PaperView::initialize');
+      //console.log('PaperView::initialize');
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
     },
 
     render: function() {
-      console.log('PaperView::render model=' + JSON.stringify(this.model));
-      console.log('Template=' + this.template(this.model.toJSON()));
-      console.log('el=' + this.el.tagName);
-      //alert(this.el + ' ');
+      //console.log('PaperView::render model=' + JSON.stringify(this.model));
+      //console.log('Template=' + this.template(this.model.toJSON()));
+      //console.log('el=' + this.el.tagName);
       this.$el.html(this.template(this.model.toJSON()));
       //this.$el.html(this.template(this.model.attributes));
       //this.$el.toggleClass('done', this.model.get('done'));

@@ -9,9 +9,6 @@ const path = require('path')
 const pjson = require('./package.json')
 const _ = require('lodash')
 
-// Used for the todo example.
-var ENTER_KEY = 13;
-var ESC_KEY = 27;
 
 // Use system log facility, should work on Windows too
 require('./lib/log')(pjson.productName || 'Paper-Notes')

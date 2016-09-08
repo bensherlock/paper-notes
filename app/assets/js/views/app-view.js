@@ -1,7 +1,9 @@
+var remote = require('electron').remote;
+var dialog = remote.dialog;
+var fs = require('fs');
 
-
-var Backbone = require('backbone')
-var _ = require('underscore')
+var Backbone = require('backbone');
+var _ = require('underscore');
 //var $ = require('jquery')
 var $ = window.$;
 
@@ -10,22 +12,19 @@ var $ = window.$;
 var AppView = Backbone.View.extend({
 
   el: $('#paperapp'),
-  //el: function(){ return $('#paperapp') },
-
-
-  //statsTemplate: _.template($('#stats-template').html()),
 
   events: {
     'keypress #new-paper':  'createOnEnter',
-    //'click #new-paper' : 'showAlert',
+
+    'click #files #clear' : 'fileclear',
+    'click #files #open' : 'fileopen',
+    'click #files #save' : 'filesave',
   },
 
   initialize: function() {
     //_.bindAll(this, 'render', 'addOne', 'addAll', 'createOnEnter', 'showAlert');
 
-    console.log('AppView::initialize DOMisReady=' + $.isReady);
-
-
+    //console.log('AppView::initialize DOMisReady=' + $.isReady);
 
     this.input = this.$('#new-paper');
 
@@ -33,49 +32,48 @@ var AppView = Backbone.View.extend({
     this.listenTo(Papers, 'reset', this.addAll);
     this.listenTo(Papers, 'all', this.render);
 
-    this.footer = this.$('footer');
+    //this.footer = this.$('footer');
     this.main = this.$('#main');
 
-    console.log('this.main=' + this.get_type(this.main))
-
-    // Fecth from server/db
+    // Fetch from server/db
     Papers.fetch();
 
+    // For demosntration/testing we'll clear the database
+    // then add a single example.
+
     // Delete all existing first
-    _.invoke(Papers.toArray(), 'destroy');
+    //_.invoke(Papers.toArray(), 'destroy');
 
     // Insert a new paper into the papers (and sync)
-    Papers.create( {title: 'A paper title'} );
+    //Papers.create( {title: 'A paper title'} );
+
   },
 
   render: function() {
-    console.log('AppView::render Papers.length=' + Papers.length);
+    //console.log('AppView::render Papers.length=' + Papers.length);
     if (Papers.length) {
       this.main.show();
-      this.footer.show();
+      //this.footer.show();
       //this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
     } else {
       this.main.hide();
-      this.footer.hide();
+      //this.footer.hide();
     }
   },
 
   addOne: function(paper) {
-    console.log('AppView::addOne paper=' + JSON.stringify(paper));
+    //console.log('AppView::addOne paper=' + JSON.stringify(paper));
     var view = new PaperView({model: paper});
     this.$("#paper-list").append(view.render().el);
-    console.log('paperlist=' + this.$("#paper-list"))
-    console.log('paperapp=' + this.get_type($(this.el)));
-    //document.write(view.render().el.innerHTML);
-    //console.log('view.render().el=' + this.get_type(view.render().el));
   },
 
   addAll: function() {
+    this.$("#paper-list").empty();
     Papers.each(this.addOne, this);
   },
 
   createOnEnter: function(e) {
-    console.log('AppView::createOnEnter e=' + e.keyCode);
+    //console.log('AppView::createOnEnter e=' + e.keyCode);
     if (e.keyCode != 13) return;
     if (!this.input.val()) return;
 
@@ -92,7 +90,74 @@ var AppView = Backbone.View.extend({
 
   showAlert : function() {
     alert('You clicked me');
-  }
+  },
+
+
+  // File Operations
+  fileclear : function() {
+    console.log('AppView::fileclear');
+
+    // Delete all existing first
+    _.invoke(Papers.toArray(), 'destroy');
+
+    // Reset papers to empty
+    Papers.reset();
+  },
+
+  fileopen : function() {
+    console.log('AppView::fileopen');
+    var self = this;
+
+    dialog.showOpenDialog(function (fileNames) {
+        // fileNames is an array that contains all the selected
+       if(fileNames === undefined) {
+            console.log("No file selected");
+       } else {
+            self.readFile(fileNames[0]);
+       }
+     });
+  },
+
+  readFile : function(filepath) {
+    fs.readFile(filepath, 'utf-8', function (err, data) {
+          if(err) {
+              console.log("An error ocurred reading the file :" + err.message);
+              return;
+          }
+          // Change how to handle the file content
+          //console.log("The file content is : " + data);
+
+          var jsonThing = JSON.parse(data); // throws exception if problem
+
+          // Now reset
+          // reset with the new data
+          Papers.reset(jsonThing);
+    });
+  },
+
+  filesave : function() {
+    console.log('AppView::filesave');
+
+    dialog.showSaveDialog(function (fileName) {
+       if (fileName === undefined){
+            console.log("You didn't save the file");
+            return;
+       }
+
+       // Grab the Papers as JSON text.
+       // fileName is a string that contains the path and filename created in the save file dialog.
+
+       fs.writeFile(fileName, JSON.stringify(Papers.toJSON()), function (err) {
+           if(err) {
+               console.log("An error ocurred creating the file "+ err.message)
+           }
+
+           console.log("The file has been succesfully saved");
+       });
+
+     });
+
+   }
 
 });
 
