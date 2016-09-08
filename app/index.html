@@ -18,21 +18,21 @@
   </head>
   <body>
 
-      <section class="paperapp">
-  			<header class="header">
+      <section id="paperapp">
+  			<header id="header">
   				<h1>papers</h1>
-  				<input class="new-paper" placeholder="Paper Title" autofocus>
+  				<input id="new-paper" placeholder="Paper Title" autofocus>
   			</header>
-  			<section class="main">
-  				<ul class="paper-list"></ul>
+  			<section id="main">
+  				<ul id="paper-list"></ul>
   			</section>
-  			<footer class="footer"></footer>
+  			<footer id="footer"></footer>
   		</section>
 
       <script type="text/template" id="item-template">
   			<div class="view">
   				<label><%- title %></label>
-  				<button class="destroy"></button>
+  				<button class="destroy">X</button>
   			</div>
   			<input class="edit" value="<%- title %>">
   		</script>

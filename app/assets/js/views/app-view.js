@@ -5,7 +5,7 @@ var _ = require('underscore')
 //var $ = require('jquery')
 var $ = window.$;
 
-$(document).ready(function(){
+// '#' = id, '.'=class
 
 var AppView = Backbone.View.extend({
 
@@ -17,11 +17,11 @@ var AppView = Backbone.View.extend({
 
   events: {
     'keypress #new-paper':  'createOnEnter',
-    'click #new-paper' : 'showAlert',
+    //'click #new-paper' : 'showAlert',
   },
 
   initialize: function() {
-    _.bindAll(this, 'render', 'addOne', 'addAll', 'createOnEnter', 'showAlert');
+    //_.bindAll(this, 'render', 'addOne', 'addAll', 'createOnEnter', 'showAlert');
 
     console.log('AppView::initialize DOMisReady=' + $.isReady);
 
@@ -97,7 +97,7 @@ var AppView = Backbone.View.extend({
 });
 
 
-//$(document).ready(function(){
+$(document).ready(function(){
 //$(function(){
   var appview = new AppView();
 });

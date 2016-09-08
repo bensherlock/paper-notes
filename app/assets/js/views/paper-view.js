@@ -3,7 +3,7 @@ var _ = require('underscore')
 //var $ = require('jquery')
 var $ = window.$;
 
-$(document).ready(function(){
+//'#' = id, '.'=class
 
 var PaperView = Backbone.View.extend({
   tagName: "li",
@@ -13,7 +13,7 @@ var PaperView = Backbone.View.extend({
   events: {
       //"click .toggle"   : "toggleDone",
       "dblclick .view"  : "edit",
-      "click a.destroy" : "clear",
+      "click .destroy" : "clear",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close"
     },
@@ -59,6 +59,4 @@ var PaperView = Backbone.View.extend({
     clear: function() {
       this.model.destroy();
     }
-});
-
 });
