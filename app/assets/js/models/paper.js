@@ -11,10 +11,6 @@ var $ = window.$;
 var Paper = Backbone.Model.extend({
 
   constructor: function() {
-    // Annotations Collection
-    this.annotations = new AnnotationList(null, {paper: this});
-    this.annotations.on('change', this.save, this);
-
     // Notes Collection
     this.notes = new NoteList(null, {paper: this});
     this.notes.on('change', this.save, this);
@@ -23,10 +19,6 @@ var Paper = Backbone.Model.extend({
   },
 
   parse: function(resp) {
-    // Annotations Collection
-    this.annotations.set(resp.annotations, {parse: true, remove: false});
-    delete resp.annotations;
-
     // Notes Collection
     this.notes.set(resp.notes, {parse: true, remove: false});
     delete resp.notes;
@@ -36,9 +28,6 @@ var Paper = Backbone.Model.extend({
 
   toJSON: function() {
     var attrs = _.clone(this.attributes);
-
-    // Annotations Collection
-    attrs.annotations = this.annotations.toJSON();
 
     // Notes Collection
     attrs.notes = this.notes.toJSON();
