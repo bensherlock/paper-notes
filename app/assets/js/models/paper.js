@@ -2,13 +2,16 @@
 
 // Includes
 var Backbone = require('backbone')
+require('backbone.localstorage')
+
 var $ = window.$;
 
 // Resources:
 // https://github.com/jashkenas/backbone/issues/56#issuecomment-15646745
 
-
 var Paper = Backbone.Model.extend({
+
+  localStorage: new Backbone.LocalStorage("papers-backbone"),
 
   constructor: function() {
     // Notes Collection

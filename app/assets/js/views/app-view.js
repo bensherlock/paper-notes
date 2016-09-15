@@ -11,6 +11,7 @@ var $ = window.$;
 
 var AppView = Backbone.View.extend({
 
+
   el: $('#paperapp'),
 
   events: {
@@ -147,7 +148,7 @@ var AppView = Backbone.View.extend({
        // Grab the Papers as JSON text.
        // fileName is a string that contains the path and filename created in the save file dialog.
 
-       fs.writeFile(fileName, JSON.stringify(Papers.toJSON()), function (err) {
+       fs.writeFile(fileName, JSON.stringify(Papers), function (err) {
            if(err) {
                console.log("An error ocurred creating the file "+ err.message)
            }
@@ -162,7 +163,7 @@ var AppView = Backbone.View.extend({
 });
 
 
-$(document).ready(function(){
+//$(document).ready(function(){
 //$(function(){
-  var appview = new AppView();
-});
+//  var appview = new AppView();
+//});
