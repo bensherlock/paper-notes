@@ -6,12 +6,13 @@ var $ = window.$;
 //'#' = id, '.'=class
 
 var PapersView = Backbone.View.extend({
+  logTag: 'PapersView',
+
   template: _.template($('#papers-view-template').html()),
 
   events: {
     //'keypress #paper-create-form':  'createOnEnter',
-
-    "submit #paper-create-form" : "onSubmit",
+    'submit #paper-create-form' : 'onSubmit',
 
     'click #files #clear' : 'fileclear',
     'click #files #open' : 'fileopen',
@@ -19,7 +20,8 @@ var PapersView = Backbone.View.extend({
   },
 
   initialize: function() {
-    console.log('PapersView::initialize');
+    console.log(this.logTag + '::' + 'initialize');
+
     this.$el.html(this.template);
 
     //_.bindAll(this, 'render', 'addOne', 'addAll', 'createOnEnter', 'showAlert');
@@ -31,11 +33,11 @@ var PapersView = Backbone.View.extend({
     this.listenTo(Papers, 'reset', this.addAll);
     this.listenTo(Papers, 'all', this.render);
 
-    //this.footer = this.$('footer');
-    this.main = this.$('#main');
 
     // Fetch from server/db - and reset to force a render
-    Papers.fetch({reset: true});
+    //console.log(this.logTag + '::' + 'fetching(reset=false)...');
+    Papers.fetch();
+    //console.log(this.logTag + '::' + 'fetched');
 
     // For demosntration/testing we'll clear the database
     // then add a single example.
@@ -48,36 +50,41 @@ var PapersView = Backbone.View.extend({
   },
 
   render: function() {
-    //console.log('AppView::render Papers.length=' + Papers.length);
+    //console.log(this.logTag + '::' + 'render Papers.length=' + Papers.length);
     if (Papers.length) {
-      this.main.show();
+      this.$('#main').show();
+
+      // Add all
+      this.addAll();
+
     } else {
-      this.main.hide();
+      this.$('#main').hide();
     }
 
     return this;
   },
 
   addOne: function(paper) {
-    console.log('AppView::addOne paper=' + JSON.stringify(paper));
+    //console.log(this.logTag + '::' + 'addOne paper=' + JSON.stringify(paper));
     var view = new PapersItemView({model: paper});
     this.$("#paper-list").append(view.render().el);
   },
 
   addAll: function() {
+    //console.log(this.logTag + '::' + 'addAll');
     this.$("#paper-list").empty();
     Papers.each(this.addOne, this);
   },
 
   createOnEnter: function(e) {
-    //console.log('AppView::createOnEnter e=' + e.keyCode);
+    //console.log(this.logTag + '::' + 'createOnEnter e=' + e.keyCode);
     if (e.keyCode != 13) return;
     if (!this.$('#key').val()) return;
 
     var paper = Papers.create({key: this.$('#key').val()});
     //this.input.val('');
     // Now jump to edit page
-    Backbone.trigger('approuter:go', "/papers/" + paper.id);
+    Backbone.trigger('approuter:go', "/papers/" + paper.id + "/edit");
   },
 
   onSubmit : function(event) {
@@ -85,7 +92,7 @@ var PapersView = Backbone.View.extend({
 
     var paper = Papers.create({key: this.$('#key').val()});
     // Now jump to edit page
-    Backbone.trigger('approuter:go', "/papers/" + paper.id);
+    Backbone.trigger('approuter:go', "/papers/" + paper.id + "/edit");
   },
 
 
@@ -102,7 +109,7 @@ var PapersView = Backbone.View.extend({
 
   // File Operations
   fileclear : function() {
-    console.log('AppView::fileclear');
+    console.log(this.logTag + '::' + 'fileclear');
 
     // Delete all existing first
     _.invoke(Papers.toArray(), 'destroy');
@@ -112,7 +119,7 @@ var PapersView = Backbone.View.extend({
   },
 
   fileopen : function() {
-    console.log('AppView::fileopen');
+    console.log(this.logTag + '::' + 'fileopen');
     var self = this;
 
     dialog.showOpenDialog(function (fileNames) {
@@ -143,7 +150,7 @@ var PapersView = Backbone.View.extend({
   },
 
   filesave : function() {
-    console.log('AppView::filesave');
+    console.log(this.logTag + '::' + 'filesave');
 
     dialog.showSaveDialog(function (fileName) {
        if (fileName === undefined){

@@ -9,17 +9,8 @@ var PaperView = Backbone.View.extend({
   template: _.template($('#paper-view-template').html()),
 
   events: {
-    //"click .toggle"   : "toggleDone",
-    "dblclick "  : "edit",
-    "click .destroy" : "clear",
-
-    "submit #paper-edit-form" : "onSubmit",
-    "click .submit"  : "saveAndClose",
-    "click .cancel"  : "close",
-
-
-    //"keypress .edit"  : "updateOnEnter",
-    //"blur     .edit"  : "close",
+    "dblclick "       : "edit",
+    "click .destroy"  : "clear",
   },
 
   initialize: function() {
@@ -30,52 +21,15 @@ var PaperView = Backbone.View.extend({
   },
 
   render: function() {
-    //console.log('render:: this.model=' + this.model);
-
     if(this.model) {
       this.$el.html(this.template(this.model.toJSON()));
     }
-
     return this;
   },
 
   edit: function() {
-    // Change template to be paper-edit-template
-    this.template = _.template($('#paper-edit-template').html());
-
-    this.render();
-  },
-
-  onSubmit : function(event) {
-    event.preventDefault();
-    this.saveAndClose();
-  },
-
-  saveAndClose : function() {
-    this.model.save( {
-      key: this.$('#key').val(),
-      title: this.$('#title').val(),
-      year: this.$('#year').val(),
-      authors: this.$('#authors').val(),
-      overview: this.$('#overview').val(),
-      tags: this.$('#tags').val(),
-    } );
-
-    this.close();
-  },
-
-  close: function() {
-    // Change template to be paper-view-template
-    this.template = _.template($('#paper-view-template').html());
-
-    this.render();
-
-    // Or change url?
-  },
-
-
-  updateOnEnter: function(e) {
-    if (e.keyCode == 13) this.close();
+    // Now jump to paper edit page
+    Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/edit");
   },
 
   clear: function() {

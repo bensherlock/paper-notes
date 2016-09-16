@@ -23,9 +23,11 @@ var bothPaperController = function(id, editing) {
 
   if( paper ) {
     console.log('paper is already in collection');
-    var view = new PaperView({model: paper});
+    var view;
     if( editing ) {
-      view.edit();
+      view = new PaperEditView({model: paper});
+    } else {
+      view = new PaperView({model: paper});
     }
 
     $container.empty().append( view.render().el );
@@ -36,9 +38,12 @@ var bothPaperController = function(id, editing) {
       success : function() {
         console.log('success fetching paper');
         Papers.add(paper);
-        var view = new PaperView(paper);
+
+        var view;
         if( editing ) {
-          view.edit();
+          view = new PaperEditView({model: paper});
+        } else {
+          view = new PaperView({model: paper});
         }
 
         $container.empty().append( view.render().el );
