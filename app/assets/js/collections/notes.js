@@ -1,3 +1,4 @@
+"use strict";
 // Collection: Notes
 
 // Includes:
@@ -11,11 +12,12 @@ var $ = window.$;
 var NoteList = Backbone.Collection.extend({
   model: Note,
 
-  localStorage: new Backbone.LocalStorage("notes-backbone"),
+  //localStorage: new Backbone.LocalStorage("notes-backbone"),
   //localStorage: true,
   //url: 'http://rest.com/api/',
   //localStorage: new Store('papers-backbone'),
-  //url: '/papers',
+
+  url: '/papers/:id/notes',
 
 
   initialize: function(models, options) {

@@ -43,10 +43,11 @@ var PapersView = Backbone.View.extend({
     // then add a single example.
 
     // Delete all existing first
-    //_.invoke(Papers.toArray(), 'destroy');
+    _.invoke(Papers.toArray(), 'destroy');
 
     // Insert a new paper into the papers (and sync)
-    //Papers.create( {title: 'A paper title', key: "smith2016about", year: 2016, authors: ["Smith, A.N."], notes : [ { title: "A note", datetime: "2016-09-13T09:36:00Z", text: "A load of text about something of interest." } ]} );
+    var p = Papers.create( {title: 'A paper title', key: "smith2016about", year: 2016, authors: ["Smith, A.N."] } );
+    p.notes.create( { title: "A note", datetime: "2016-09-13T09:36:00Z", text: "A load of text about something of interest." } );
   },
 
   render: function() {

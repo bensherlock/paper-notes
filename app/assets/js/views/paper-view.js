@@ -23,8 +23,34 @@ var PaperView = Backbone.View.extend({
   render: function() {
     if(this.model) {
       this.$el.html(this.template(this.model.toJSON()));
+
+      console.log(this.logTag + '::' + 'render this.model.notes.length=' + this.model.notes.length);
+      if (this.model.notes.length) {
+        this.$('#main').show();
+
+          // Add all
+          this.addAll();
+
+        } else {
+          this.$('#main').hide();
+        }
+
+      return this;
+
     }
     return this;
+  },
+
+  addOne: function(note) {
+    //console.log(this.logTag + '::' + 'addOne paper=' + JSON.stringify(paper));
+    var view = new NotesItemView({model: note});
+    this.$("#note-list").append(view.render().el);
+  },
+
+  addAll: function() {
+    //console.log(this.logTag + '::' + 'addAll');
+    this.$("#note-list").empty();
+    this.model.notes.each(this.addOne, this);
   },
 
   edit: function() {

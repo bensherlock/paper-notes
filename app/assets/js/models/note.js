@@ -1,3 +1,4 @@
+"use strict";
 // Backbone Model: Note
 
 // Includes
@@ -7,6 +8,10 @@ var $ = window.$;
 
 var Note = Backbone.Model.extend({
 
+  // Set the idAttribute (Backbone Model) to use the LokiJS controlled attribute.
+  // i.e. id: return $loki,
+  idAttribute: dbIdAttribute,
+
   defaults: function() {
 
       return {
@@ -14,9 +19,9 @@ var Note = Backbone.Model.extend({
         datetime: "2016-09-13T09:44:00Z",
         text: "",
 
-        order: Notes.nextOrder()
+        //order: Notes.nextOrder()
       };
     },
 
-    //urlRoot: '/notes',
+    urlRoot: '/papers/:id/notes',
 });

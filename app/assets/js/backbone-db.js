@@ -7,6 +7,8 @@ var Backbone = require('backbone')
 // LokiJS - Data is held in filebased db - uses sync override.
 var Loki = require('lokijs')
 
+window.dbIsLoaded = false;
+
 var LokiDB = new Loki('lokidb.json', {persistenceMethod:'fs', autosave: true, autoload: true,
   autoloadCallback: function() {
     // Check if we have a database already, otherwise create the collections.
@@ -14,6 +16,8 @@ var LokiDB = new Loki('lokidb.json', {persistenceMethod:'fs', autosave: true, au
     if( !papers ) {
       LokiDB.addCollection('papers');
     }
+    console.log('db is loaded');
+    window.dbIsLoaded = true;
   }
 });
 

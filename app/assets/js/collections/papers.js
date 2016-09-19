@@ -9,10 +9,6 @@ require('backbone.localstorage')
 var $ = window.$;
 
 
-//Backbone.Collection.prototype.save = function (options) {
-//  Backbone.sync("create", this, options);
-//};
-
 var PaperList = Backbone.Collection.extend({
   model: Paper,
 

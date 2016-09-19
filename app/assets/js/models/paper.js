@@ -19,41 +19,35 @@ var Paper = Backbone.Model.extend({
 
 
 
-/*
+
   constructor: function() {
     // Notes Collection
-    //this.notes = new NoteList(null, {paper: this});
-    //this.notes.on('change', this.save, this);
+    this.notes = new NoteList(null, {paper: this});
+    this.notes.on('change', this.save, this);
 
     Backbone.Model.apply(this, arguments);
   },
-*/
 
-/*
   parse: function(resp) {
     // Notes Collection
-    //this.notes.set(resp.notes, {parse: true, remove: false});
-    //delete resp.notes;
+    this.notes.set(resp.notes, {parse: true, remove: false});
+    delete resp.notes;
 
     return resp;
   },
 
   toJSON: function() {
     console.log('Paper::toJSON');
-    //var attrs = _.clone(this.attributes);
-
-    //delete attrs.collection;
-
-    //                     object, objectMaxDepth, arrayMaxLength, indent
-    //var str = toJSONLimits(this, 5, 100, '  ');
-    //console.log(str);
+    var attrs = _.clone(this.attributes);
 
     // Notes Collection
-    //attrs.notes = this.notes.toJSON();
+    attrs.notes = this.notes.toJSON();
 
-    return this;
+    //console.log('attrs=' + getKeys(attrs) );
+
+    return attrs;
   },
-*/
+
 
   defaults: function() {
       return {
