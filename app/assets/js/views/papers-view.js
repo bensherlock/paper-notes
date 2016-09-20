@@ -47,7 +47,10 @@ var PapersView = Backbone.View.extend({
 
     // Insert a new paper into the papers (and sync)
     var p = Papers.create( {title: 'A paper title', key: "smith2016about", year: 2016, authors: ["Smith, A.N."] } );
-    p.notes.create( { title: "A note", datetime: "2016-09-13T09:36:00Z", text: "A load of text about something of interest." } );
+
+    //p.notes.create( { title: "A note", datetime: "2016-09-13T09:36:00Z", text: "A load of text about something of interest." } );
+    p.notes.add({ title: "A note", datetime: "2016-09-13T09:36:00Z", text: "A load of text about something of interest." } );
+    p.save();
   },
 
   render: function() {

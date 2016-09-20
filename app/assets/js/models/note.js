@@ -12,6 +12,19 @@ var Note = Backbone.Model.extend({
   // i.e. id: return $loki,
   idAttribute: dbIdAttribute,
 
+
+
+  toJSON: function() {
+    console.log('Note::toJSON');
+    var attrs = _.clone(this.attributes);
+
+    console.log('this.attributes=' + getKeys(this.attributes) );
+
+    console.log('attrs=' + getKeys(attrs) );
+
+    return attrs;
+  },
+
   defaults: function() {
 
       return {

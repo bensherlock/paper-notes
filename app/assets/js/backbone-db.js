@@ -65,7 +65,7 @@ Backbone.sync = function(method, model, options) {
 
         break;
       case "update":
-        var jsonStr = JSON.stringify(model);
+        var jsonStr = JSON.stringify(model.toJSON());
         console.log('jsonStr=' + jsonStr);
         resp = lokiCollection.update(model.toJSON());
         //resp = diskdb.papers.update(model);

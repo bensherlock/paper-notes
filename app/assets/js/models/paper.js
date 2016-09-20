@@ -31,6 +31,7 @@ var Paper = Backbone.Model.extend({
   parse: function(resp) {
     // Notes Collection
     this.notes.set(resp.notes, {parse: true, remove: false});
+    this.notes.paper = this;
     delete resp.notes;
 
     return resp;
@@ -40,10 +41,13 @@ var Paper = Backbone.Model.extend({
     console.log('Paper::toJSON');
     var attrs = _.clone(this.attributes);
 
-    // Notes Collection
-    attrs.notes = this.notes.toJSON();
+    console.log('this.attributes=' + getKeys(this.attributes) );
 
-    //console.log('attrs=' + getKeys(attrs) );
+    // Notes Collection
+    //attrs.notes = this.notes.toJSON();
+    //delete attrs.notes.paper;
+
+    console.log('attrs=' + getKeys(attrs) );
 
     return attrs;
   },
