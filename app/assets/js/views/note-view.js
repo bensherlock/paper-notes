@@ -5,12 +5,11 @@ var $ = window.$;
 
 //'#' = id, '.'=class
 
-var NotesItemView = Backbone.View.extend({
-  template: _.template($('#notes-item-view-template').html()),
+var NoteView = Backbone.View.extend({
+  template: _.template($('#note-view-template').html()),
 
   events: {
-    'click .title'  : 'clickTitle',
-    'click .destroy' : 'clear',
+    "dblclick "       : "edit",
   },
 
   initialize: function(options) {
@@ -35,10 +34,11 @@ var NotesItemView = Backbone.View.extend({
     return this;
   },
 
-  clickTitle: function() {
-    console.log('clickTitle');
-    Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/notes/" + this.noteId);
+  edit: function() {
+    // Now jump to note edit page
+    Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/notes/" + this.noteId + "/edit");
   },
+
 
   clear: function() {
     this.model.destroy();

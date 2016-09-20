@@ -18,21 +18,19 @@ var Paper = Backbone.Model.extend({
   idAttribute: dbIdAttribute,
 
 
-
-
   constructor: function() {
     // Notes Collection
-    this.notes = new NoteList(null, {paper: this});
-    this.notes.on('change', this.save, this);
+    //this.notes = new NoteList(null, {paper: this});
+    //this.notes.on('change', this.save, this);
 
     Backbone.Model.apply(this, arguments);
   },
 
   parse: function(resp) {
     // Notes Collection
-    this.notes.set(resp.notes, {parse: true, remove: false});
-    this.notes.paper = this;
-    delete resp.notes;
+    //this.notes.set(resp.notes, {parse: true, remove: false});
+    //this.notes.paper = this;
+    //delete resp.notes;
 
     return resp;
   },
@@ -41,13 +39,13 @@ var Paper = Backbone.Model.extend({
     console.log('Paper::toJSON');
     var attrs = _.clone(this.attributes);
 
-    console.log('this.attributes=' + getKeys(this.attributes) );
+    //console.log('this.attributes=' + getKeys(this.attributes) );
 
     // Notes Collection
     //attrs.notes = this.notes.toJSON();
     //delete attrs.notes.paper;
 
-    console.log('attrs=' + getKeys(attrs) );
+    //console.log('attrs=' + getKeys(attrs) );
 
     return attrs;
   },
@@ -61,6 +59,7 @@ var Paper = Backbone.Model.extend({
         year: 2016,
         overview: "",
         tags: [],
+        notes: [],
 
         order: Papers.nextOrder()
       };

@@ -24,27 +24,14 @@ var bothNoteController = function(paperId, noteId, editing) {
   if( paper ) {
     console.log('paper is already in collection');
 
-    // Get Note
-    var note = paper.notes.get(noteId);
-
-    if(note) {
-      var view;
-      if( editing ) {
-        view = new NoteEditView({model: note});
-      } else {
-        view = new NoteView({model: note});
-      }
-
-      $container.empty().append( view.render().el );
+    var view;
+    if( editing ) {
+      view = new NoteEditView({model: paper, noteId: noteId});
     } else {
-      // Note isn't in the collection. Fetch it. How?
-      note = new Note({})
-
+      view = new NoteView({model: paper, noteId: noteId});
     }
 
-
-
-
+    $container.empty().append( view.render().el );
   } else {
     // Paper isn't in the collection. Fetch it.
     paper = new Paper({id: id});
@@ -55,9 +42,9 @@ var bothNoteController = function(paperId, noteId, editing) {
 
         var view;
         if( editing ) {
-          view = new PaperEditView({model: paper});
+          view = new NoteEditView({model: paper, noteId: noteId});
         } else {
-          view = new PaperView({model: paper});
+          view = new NoteView({model: paper, noteId: noteId});
         }
 
         $container.empty().append( view.render().el );
