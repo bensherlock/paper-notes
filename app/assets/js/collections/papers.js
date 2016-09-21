@@ -19,7 +19,6 @@ var PaperList = Backbone.Collection.extend({
   url: '/papers',
 
 
-
   nextOrder: function() {
     if(!this.length) return 1;
     return this.last().get('order') + 1;

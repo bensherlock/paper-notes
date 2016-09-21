@@ -13,11 +13,12 @@ var Note = function(options) {
 
 _.extend(Note.prototype, {
 
+
   defaults: function() {
 
       return {
         title: "",
-        datetime: "2016-09-13T09:44:00Z",
+        datetime: new Date().toISOString(), //"2016-09-13T09:44:00Z",
         text: "",
 
         //order: Notes.nextOrder()

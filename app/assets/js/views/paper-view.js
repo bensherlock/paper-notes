@@ -4,6 +4,7 @@
 // Includes
 var Backbone = require('backbone')
 var _ = require('underscore')
+var TokenField = require('tokenfield')
 //var $ = require('jquery')
 var $ = window.$;
 
@@ -23,11 +24,16 @@ var PaperView = Backbone.View.extend({
     this.listenTo(this.model, 'reset', this.render);
     this.listenTo(this.model, 'change', this.render);
     this.listenTo(this.model, 'destroy', this.remove);
+    this.listenTo(this.model, 'all', this.render);
+
+    // tags
+    //this.tagsField = new TokenField({ el: '#tags'});
   },
 
   render: function() {
     if(this.model) {
       this.$el.html(this.template(this.model.toJSON()));
+      
 
       var modelJson = this.model.toJSON();
 

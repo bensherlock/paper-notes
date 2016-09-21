@@ -46,6 +46,7 @@ var PapersView = Backbone.View.extend({
     // For demosntration/testing we'll clear the database
     // then add a single example.
 
+    ///*
     // Delete all existing first
     _.invoke(Papers.toArray(), 'destroy');
 
@@ -59,8 +60,11 @@ var PapersView = Backbone.View.extend({
         title: "A note",
         datetime: "2016-09-13T09:36:00Z",
         text: "A load of text about something of interest."
-      }]
+      }],
+      tags: ["ieee", "iet"]
     } );
+    //*/
+
   },
 
   render: function() {
@@ -175,7 +179,8 @@ var PapersView = Backbone.View.extend({
        // Grab the Papers as JSON text.
        // fileName is a string that contains the path and filename created in the save file dialog.
 
-       fs.writeFile(fileName, JSON.stringify(Papers.toJSON()), function (err) {
+       var papersJson = Papers.toJSON();
+       fs.writeFile(fileName, JSON.stringify(papersJson, null, 2), function (err) {
            if(err) {
                console.log("An error ocurred creating the file "+ err.message)
            }

@@ -14,6 +14,8 @@ var NoteView = Backbone.View.extend({
 
   events: {
     "dblclick "       : "edit",
+
+    "click #paper"    : "toPaper",
   },
 
   initialize: function(options) {
@@ -42,6 +44,11 @@ var NoteView = Backbone.View.extend({
   edit: function() {
     // Now jump to note edit page
     Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/notes/" + this.noteId + "/edit");
+  },
+
+  toPaper: function() {
+    // Now jump to paper view page
+    Backbone.trigger('approuter:go', "/papers/" + this.model.id);
   },
 
 });

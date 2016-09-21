@@ -36,7 +36,7 @@ var Paper = Backbone.Model.extend({
   },
 
   toJSON: function() {
-    console.log('Paper::toJSON');
+    //console.log('Paper::toJSON');
     var attrs = _.clone(this.attributes);
 
     //console.log('this.attributes=' + getKeys(this.attributes) );

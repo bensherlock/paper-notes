@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./assets/css/app.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="./node_modules/tokenfield/dist/tokenfield.css">
 
     <!-- http://electron.atom.io/docs/faq/ -->
     <!--
@@ -31,13 +32,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">Paper Notes</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#/papers">Papers</a></li>
-              <li><a href="#/papers/1">Paper 1</a></li>
+              <!--
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -50,6 +51,7 @@
                   <li><a href="#">One more separated link</a></li>
                 </ul>
               </li>
+              -->
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -138,6 +140,9 @@
 
   <!-- NoteView -->
   <script type="text/template" id="note-view-template">
+    <div class="form-group">
+      <button type="button" id="paper" class="btn btn-primary">Back to Paper</button>
+    </div>
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -293,6 +298,7 @@
   <script>
     // You can also require other files to run in this process
     require('bootstrap');
+    require('tokenfield');
     require('./assets/js/ex-links.js');
     require('./assets/js/notifications.js');
 
@@ -311,7 +317,6 @@
 
   <!-- Backbone Models -->
   <script src="./assets/js/models/note.js"></script>
-  <script src="./assets/js/models/annotation.js"></script>
   <script src="./assets/js/models/paper.js"></script>
 
   <!-- Backbone Collections -->
