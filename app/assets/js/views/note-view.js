@@ -1,3 +1,7 @@
+"use strict";
+// Backbone View: View Note
+
+// Includes
 var Backbone = require('backbone')
 var _ = require('underscore')
 //var $ = require('jquery')
@@ -17,6 +21,7 @@ var NoteView = Backbone.View.extend({
 
     this.listenTo(this.model, 'reset', this.render);
     this.listenTo(this.model, 'change', this.render);
+
     this.listenTo(this.model, 'destroy', this.remove);
   },
 
@@ -25,9 +30,9 @@ var NoteView = Backbone.View.extend({
 
     if(this.model) {
       var modelJson = this.model.toJSON();
-      console.log('modelJson=' + JSON.stringify(modelJson));
-      console.log('this.noteId=' + this.noteId);
-      console.log('modelJson.notes[this.noteId]=' + JSON.stringify(modelJson.notes[this.noteId]));
+      //console.log('modelJson=' + JSON.stringify(modelJson));
+      //console.log('this.noteId=' + this.noteId);
+      //console.log('modelJson.notes[this.noteId]=' + JSON.stringify(modelJson.notes[this.noteId]));
       this.$el.html(this.template( modelJson.notes[this.noteId]));
     }
 
@@ -39,8 +44,4 @@ var NoteView = Backbone.View.extend({
     Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/notes/" + this.noteId + "/edit");
   },
 
-
-  clear: function() {
-    this.model.destroy();
-  }
 });

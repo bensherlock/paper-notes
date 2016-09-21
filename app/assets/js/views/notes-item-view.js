@@ -1,3 +1,7 @@
+"use strict";
+// Backbone View: View Note Item
+
+// Includes
 var Backbone = require('backbone')
 var _ = require('underscore')
 //var $ = require('jquery')
@@ -26,9 +30,9 @@ var NotesItemView = Backbone.View.extend({
 
     if(this.model) {
       var modelJson = this.model.toJSON();
-      console.log('modelJson=' + JSON.stringify(modelJson));
-      console.log('this.noteId=' + this.noteId);
-      console.log('modelJson.notes[this.noteId]=' + JSON.stringify(modelJson.notes[this.noteId]));
+      //console.log('modelJson=' + JSON.stringify(modelJson));
+      //console.log('this.noteId=' + this.noteId);
+      //console.log('modelJson.notes[this.noteId]=' + JSON.stringify(modelJson.notes[this.noteId]));
       this.$el.html(this.template( modelJson.notes[this.noteId]));
     }
 
@@ -41,6 +45,16 @@ var NotesItemView = Backbone.View.extend({
   },
 
   clear: function() {
-    this.model.destroy();
+    //this.model.destroy();
+    // Delete the noteId
+    var notes = this.model.get('notes');
+    notes.splice( this.noteId, 1 );
+    notes = _.clone(notes);
+    this.model.set('notes', notes ); //notes.slice()); // - shallow copy
+
+    this.model.save();
+
+    // Remove this view now
+    this.remove();
   }
 });

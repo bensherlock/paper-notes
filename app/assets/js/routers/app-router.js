@@ -8,7 +8,7 @@ var $ = window.$;
 var AppRouter = Backbone.Router.extend({
 
   routes : {
-    ''                                      : viewPapersController,
+    ''                                      : viewAppController,
 
     'papers'                                : viewPapersController,
     'papers/:id'                            : viewPaperController,

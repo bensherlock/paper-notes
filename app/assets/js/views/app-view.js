@@ -1,3 +1,7 @@
+"use strict";
+// Backbone View: View App
+
+// Includes
 var remote = require('electron').remote;
 var dialog = remote.dialog;
 var fs = require('fs');
@@ -11,86 +15,22 @@ var $ = window.$;
 
 var AppView = Backbone.View.extend({
 
-
-  el: $('#paperapp'),
+  template: _.template($('#app-view-template').html()),
 
   events: {
-    'keypress #new-paper':  'createOnEnter',
-
     'click #files #clear' : 'fileclear',
     'click #files #open' : 'fileopen',
     'click #files #save' : 'filesave',
   },
 
   initialize: function() {
-    //_.bindAll(this, 'render', 'addOne', 'addAll', 'createOnEnter', 'showAlert');
-
-    //console.log('AppView::initialize DOMisReady=' + $.isReady);
-
-    this.input = this.$('#new-paper');
-
-    this.listenTo(Papers, 'add', this.addOne);
-    this.listenTo(Papers, 'reset', this.addAll);
-    this.listenTo(Papers, 'all', this.render);
-
-    //this.footer = this.$('footer');
-    this.main = this.$('#main');
-
-    // Fetch from server/db
-    Papers.fetch();
-
-    // For demosntration/testing we'll clear the database
-    // then add a single example.
-
-    // Delete all existing first
-    _.invoke(Papers.toArray(), 'destroy');
-
-    // Insert a new paper into the papers (and sync)
-    Papers.create( {title: 'A paper title', notes : [ { title: "A note", datetime: "2016-09-13T09:36:00Z", text: "A load of text about something of interest." } ]} );
-
+    this.$el.html(this.template);
   },
 
   render: function() {
-    //console.log('AppView::render Papers.length=' + Papers.length);
-    if (Papers.length) {
-      this.main.show();
-      //this.footer.show();
-      //this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
-    } else {
-      this.main.hide();
-      //this.footer.hide();
-    }
-  },
+    //console.log('AppView::render');
 
-  addOne: function(paper) {
-    //console.log('AppView::addOne paper=' + JSON.stringify(paper));
-    var view = new PaperView({model: paper});
-    this.$("#paper-list").append(view.render().el);
-  },
-
-  addAll: function() {
-    this.$("#paper-list").empty();
-    Papers.each(this.addOne, this);
-  },
-
-  createOnEnter: function(e) {
-    //console.log('AppView::createOnEnter e=' + e.keyCode);
-    if (e.keyCode != 13) return;
-    if (!this.input.val()) return;
-
-    Papers.create({title: this.input.val()});
-    this.input.val('');
-  },
-
-
-  get_type: function(thing) {
-    if(thing===null)return "[object Null]"; // special case
-    //return Object.prototype.toString.call(thing);
-    return thing.constructor.name;
-  },
-
-  showAlert : function() {
-    alert('You clicked me');
+    return this;
   },
 
 

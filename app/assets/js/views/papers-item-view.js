@@ -1,3 +1,7 @@
+"use strict";
+// Backbone View: View Paper Item
+
+// Includes
 var Backbone = require('backbone')
 var _ = require('underscore')
 //var $ = require('jquery')

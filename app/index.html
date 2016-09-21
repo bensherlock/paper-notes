@@ -99,6 +99,18 @@
         </div>
       </div>
     </div>
+
+    <div class="page-header">
+      <h1>Add New Note</h1>
+    </div>
+    <form id="note-create-form" class="form-inline">
+      <div class="form-group">
+        <label for="note-title">Title</label>
+        <input id="note-title" type="text" class="form-control" placeholder="Note Title" autofocus>
+      </div>
+      <button type="submit" class="btn btn-default">Create</button>
+    </form>
+
     <section id="main">
       <div class="page-header">
         <h1>Notes</h1>
@@ -144,7 +156,7 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title edit"><%- title %></h3>
+          <h3 class="panel-title edit"><%- title %> <%- datetime %></h3>
         </div>
         <div class="panel-body">
           <form id="paper-edit-form">
@@ -254,6 +266,17 @@
   </script>
 
 
+
+  <!-- AppView -->
+  <script type="text/template" id="app-view-template">
+    <div class="form-group" id="files">
+      <button id="clear" class="btn btn-primary">Clear</button>
+      <button id="open" class="btn btn-primary">Open</button>
+      <button id="save" class="btn btn-primary">Save</button>
+    </div>
+  </script>
+
+
   <!-- http://stackoverflow.com/a/37480521/209647 -->
   <!-- Insert this line above script imports  -->
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -292,11 +315,10 @@
   <script src="./assets/js/models/paper.js"></script>
 
   <!-- Backbone Collections -->
-  <script src="./assets/js/collections/notes.js"></script>
-  <script src="./assets/js/collections/annotations.js"></script>
   <script src="./assets/js/collections/papers.js"></script>
 
   <!-- Backbone Controllers -->
+  <script src="./assets/js/controllers/view-app-controller.js"></script>
   <script src="./assets/js/controllers/view-paper-controller.js"></script>
   <script src="./assets/js/controllers/view-papers-controller.js"></script>
   <script src="./assets/js/controllers/view-note-controller.js"></script>
@@ -305,6 +327,8 @@
   <script src="./assets/js/routers/app-router.js"></script>
 
   <!-- Backbone Views -->
+  <script src="./assets/js/views/app-view.js"></script>
+
   <script src="./assets/js/views/paper-view.js"></script>
   <script src="./assets/js/views/paper-edit-view.js"></script>
   <script src="./assets/js/views/papers-item-view.js"></script>
@@ -313,8 +337,6 @@
   <script src="./assets/js/views/note-view.js"></script>
   <script src="./assets/js/views/note-edit-view.js"></script>
   <script src="./assets/js/views/notes-item-view.js"></script>
-
-  <script src="./assets/js/views/app-view.js"></script>
 
 
   <!-- In Electron, this is the correct way to include jQuery -->

@@ -1,3 +1,7 @@
+"use strict";
+// Backbone View: View Paper
+
+// Includes
 var Backbone = require('backbone')
 var _ = require('underscore')
 //var $ = require('jquery')
@@ -10,7 +14,8 @@ var PaperView = Backbone.View.extend({
 
   events: {
     "dblclick "       : "edit",
-    "click .destroy"  : "clear",
+
+    'submit #note-create-form' : 'onSubmit',
   },
 
   initialize: function() {
@@ -61,8 +66,38 @@ var PaperView = Backbone.View.extend({
     Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/edit");
   },
 
-  clear: function() {
-    this.model.destroy();
+
+  createOnEnter: function(e) {
+    //console.log(this.logTag + '::' + 'createOnEnter e=' + e.keyCode);
+    if (e.keyCode != 13) return;
+    if (!this.$('#note-title').val()) return;
+
+    var notes = this.model.get('notes');
+    notes.push( {title: this.$('#note-title').val(), datetime: new Date().toISOString(), text: ""} );
+    notes = _.clone(notes);
+    var noteId = notes.length - 1;
+    this.model.set('notes', notes);
+    this.model.save();
+
+    // Now jump to edit page
+    Backbone.trigger('approuter:go', '/papers/' + this.model.id + '/notes/' + noteId + '/edit');
   },
+
+  onSubmit : function(event) {
+    event.preventDefault();
+
+    if (!this.$('#note-title').val()) return;
+
+    var notes = this.model.get('notes');
+    notes.push( {title: this.$('#note-title').val(), datetime: new Date().toISOString(), text: ""} );
+    notes = _.clone(notes);
+    var noteId = notes.length - 1;
+    this.model.set('notes', notes);
+    this.model.save();
+
+    // Now jump to edit page
+    Backbone.trigger('approuter:go', '/papers/' + this.model.id + '/notes/' + noteId + '/edit');
+  },
+
 
 });

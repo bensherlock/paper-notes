@@ -1,3 +1,7 @@
+"use strict";
+// Backbone View: Edit Note
+
+// Includes
 var Backbone = require('backbone')
 var _ = require('underscore')
 //var $ = require('jquery')
