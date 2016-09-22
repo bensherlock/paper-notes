@@ -145,13 +145,75 @@
       <button type="button" id="paper" class="btn btn-primary">Back to Paper</button>
     </div>
     <div class="row">
-      <div class="panel panel-default">
+      <div class="panel panel-default note">
         <div class="panel-heading">
           <h3 class="panel-title"><%- title %></h3>
         </div>
         <div class="panel-body">
           <p>Date: <%- datetime %></p>
           <p>Text: <%- text %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-header">
+      <h1>Add New Anchor</h1>
+    </div>
+    <form id="anchor-create-form" class="form-inline">
+      <div class="form-group">
+        <label for="page">Page Number</label>
+        <input id="page" type="page" class="form-control" placeholder="Anchor Page" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="thing">Thing (Selected Text/Figure/Equation/Table)</label>
+        <input id="thing" type="text" class="form-control" placeholder="Anchor Thing" >
+      </div>
+      <div class="form-group">
+        <label for="text">Text</label>
+        <input id="text" type="text" class="form-control" placeholder="Anchor Text" >
+      </div>
+      <button type="submit" class="btn btn-default">Create</button>
+    </form>
+
+    <section id="main">
+      <div class="page-header">
+        <h1>Anchors</h1>
+      </div>
+      <div id="anchor-list"></div>
+    </section>
+  </script>
+
+  <!-- AnchorsItemView -->
+  <script type="text/template" id="anchors-item-view-template">
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title thing"><%- thing %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="viewing">
+            <p>Page Number: <%- page %></p>
+            <p>Text: <%- text %></p>
+            <button class="destroy btn btn-danger btn-sm">Delete</button>
+          </div>
+          <div class="editing">
+            <form id="anchor-edit-form" class="form-inline">
+              <div class="form-group">
+                <label for="page">Page Number</label>
+                <input id="page" type="page" class="form-control" placeholder="Anchor Page" value="<%- page %>" autofocus>
+              </div>
+              <div class="form-group">
+                <label for="thing">Thing (Selected Text/Figure/Equation/Table)</label>
+                <input id="thing" type="text" class="form-control" placeholder="Anchor Thing" value="<%- thing %>" >
+              </div>
+              <div class="form-group">
+                <label for="text">Text</label>
+                <input id="text" type="text" class="form-control" placeholder="Anchor Text" value="<%- text %>" >
+              </div>
+              <button type="submit" class="btn btn-default">Save</button>
+              <button type="button" class="cancel btn btn-default">Cancel</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -170,7 +232,7 @@
           <h3 class="panel-title edit"><%- title %> <%- datetime %></h3>
         </div>
         <div class="panel-body">
-          <form id="paper-edit-form">
+          <form id="note-edit-form">
             <div class="form-group">
               <label for="title">Title</label>
               <input id="title" type="text"  class="form-control" value="<%- title %>">
@@ -371,6 +433,8 @@
   <script src="./assets/js/views/note-view.js"></script>
   <script src="./assets/js/views/note-edit-view.js"></script>
   <script src="./assets/js/views/notes-item-view.js"></script>
+
+  <script src="./assets/js/views/anchors-item-view.js"></script>
 
 
   <!-- In Electron, this is the correct way to include jQuery -->

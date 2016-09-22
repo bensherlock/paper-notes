@@ -13,7 +13,7 @@ var NoteEditView = Backbone.View.extend({
   template: _.template($('#note-edit-template').html()),
 
   events: {
-    "submit #paper-edit-form" : "onSubmit",
+    "submit #note-edit-form" : "onSubmit",
     "click .submit"  : "saveAndClose",
     "click .cancel"  : "close",
   },
@@ -29,8 +29,8 @@ var NoteEditView = Backbone.View.extend({
 
   render: function() {
     if(this.model) {
-      var modelJson = this.model.toJSON();
-      this.$el.html(this.template( modelJson.notes[this.noteId]));
+      var notes = this.model.get( 'notes' );
+      this.$el.html(this.template( notes[this.noteId] ));
     }
 
     return this;

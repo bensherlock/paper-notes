@@ -29,11 +29,8 @@ var NotesItemView = Backbone.View.extend({
     //console.log('render:: this.model=' + this.model);
 
     if(this.model) {
-      var modelJson = this.model.toJSON();
-      //console.log('modelJson=' + JSON.stringify(modelJson));
-      //console.log('this.noteId=' + this.noteId);
-      //console.log('modelJson.notes[this.noteId]=' + JSON.stringify(modelJson.notes[this.noteId]));
-      this.$el.html(this.template( modelJson.notes[this.noteId]));
+      var notes = this.model.get('notes');
+      this.$el.html(this.template( notes[this.noteId] ));
     }
 
     return this;
