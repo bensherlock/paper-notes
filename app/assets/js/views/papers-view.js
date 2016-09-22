@@ -2,9 +2,11 @@
 // Backbone View: View Papers
 
 // Includes
-var Backbone = require('backbone')
-var _ = require('underscore')
-//var $ = require('jquery')
+var Backbone = require('backbone');
+var _ = require('underscore');
+// With Underscore
+require("underscore-query")(_);
+
 var $ = window.$;
 
 //'#' = id, '.'=class
@@ -16,11 +18,10 @@ var PapersView = Backbone.View.extend({
 
   events: {
     //'keypress #paper-create-form':  'createOnEnter',
-    'submit #paper-create-form' : 'onSubmit',
 
-    'click #files #clear' : 'fileclear',
-    'click #files #open' : 'fileopen',
-    'click #files #save' : 'filesave',
+    'submit #search-form' : 'onSearch',
+
+    'submit #paper-create-form' : 'onSubmit',
   },
 
   initialize: function() {
@@ -91,7 +92,37 @@ var PapersView = Backbone.View.extend({
   addAll: function() {
     //console.log(this.logTag + '::' + 'addAll');
     this.$("#paper-list").empty();
-    Papers.each(this.addOne, this);
+
+    if( !this.$('#search').val() ) {
+      //Add all in the collection
+      Papers.each(this.addOne, this);
+    } else {
+      // Filter the Papers collection using the search input value
+      var queryText = this.$('#search').val();
+
+      // Use underscore-query to build the query
+      //key: "",
+      //authors: [""],
+      //title: "",
+      //year: 2016,
+      //overview: "",
+      //tags: [],
+      //console.log('queryText=' + queryText);
+      var theQuery = _.query.build().getter('get')
+      //  .and('title', {$likeI: queryText });
+        .or("title", {$likeI: queryText })
+        .or("key", {$likeI: queryText })
+        .or("tags", { $contains: queryText })
+        .or("overview", {$likeI: queryText });
+
+      // Then apply it to Papers
+      var filtered = theQuery.all( Papers.models );
+      //console.log('filtered:length=' + filtered.length);
+
+      for(var i = 0; i < filtered.length; i++ ) {
+        this.addOne( filtered[i] );
+      }
+    }
   },
 
   createOnEnter: function(e) {
@@ -113,6 +144,18 @@ var PapersView = Backbone.View.extend({
     Backbone.trigger('approuter:go', "/papers/" + paper.id + "/edit");
   },
 
+  onSearch : function(event) {
+    event.preventDefault();
+
+    var query = this.$('#search').val();
+
+    this.addAll();
+
+    // Encode?
+    // Now jump to edit page
+    //Backbone.trigger('approuter:go', "/papers/search/" + query);
+  },
+
 
   get_type: function(thing) {
     if(thing===null)return "[object Null]"; // special case
@@ -125,70 +168,5 @@ var PapersView = Backbone.View.extend({
   },
 
 
-  // File Operations
-  fileclear : function() {
-    console.log(this.logTag + '::' + 'fileclear');
 
-    // Delete all existing first
-    _.invoke(Papers.toArray(), 'destroy');
-
-    // Reset papers to empty
-    Papers.reset();
-  },
-
-  fileopen : function() {
-    console.log(this.logTag + '::' + 'fileopen');
-    var self = this;
-
-    dialog.showOpenDialog(function (fileNames) {
-        // fileNames is an array that contains all the selected
-       if(fileNames === undefined) {
-            console.log("No file selected");
-       } else {
-            self.readFile(fileNames[0]);
-       }
-     });
-  },
-
-  readFile : function(filepath) {
-    fs.readFile(filepath, 'utf-8', function (err, data) {
-          if(err) {
-              console.log("An error ocurred reading the file :" + err.message);
-              return;
-          }
-          // Change how to handle the file content
-          //console.log("The file content is : " + data);
-
-          var jsonThing = JSON.parse(data); // throws exception if problem
-
-          // Now reset
-          // reset with the new data
-          Papers.reset(jsonThing);
-    });
-  },
-
-  filesave : function() {
-    console.log(this.logTag + '::' + 'filesave');
-
-    dialog.showSaveDialog(function (fileName) {
-       if (fileName === undefined){
-            console.log("You didn't save the file");
-            return;
-       }
-
-       // Grab the Papers as JSON text.
-       // fileName is a string that contains the path and filename created in the save file dialog.
-
-       var papersJson = Papers.toJSON();
-       fs.writeFile(fileName, JSON.stringify(papersJson, null, 2), function (err) {
-           if(err) {
-               console.log("An error ocurred creating the file "+ err.message)
-           }
-
-           console.log("The file has been succesfully saved");
-       });
-
-     });
-
-   }
 });

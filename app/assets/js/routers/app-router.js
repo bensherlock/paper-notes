@@ -11,6 +11,7 @@ var AppRouter = Backbone.Router.extend({
     ''                                      : viewAppController,
 
     'papers'                                : viewPapersController,
+    'papers/search/:query'                  : viewPapersController,
     'papers/:id'                            : viewPaperController,
     'papers/:id/edit'                       : editPaperController,
 

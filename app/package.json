@@ -20,9 +20,10 @@
     "backbone.localstorage": "^1.1.16",
     "diskdb": "^0.1.15",
     "lokijs": "^1.4.1",
-    "tokenfield": "^0.3.9",
+    "tokenfield": "^0.3.10",
     "jquery": "^3.1.0",
     "underscore": "^1.8.3",
+    "underscore-query": "^3.3.1",
     "bootstrap": "^3.3.7"
   },
   "config": {

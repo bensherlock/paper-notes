@@ -51,13 +51,19 @@ Backbone.sync = function(method, model, options) {
 
   var lokiCollection = LokiDB.getCollection('papers'); // Can use the URL here later
 
+  // options.data{  } contains the query fields to use on 'read' method
+
   var resp, errorMessage;
   try {
 
     switch (method) {
       case "read":
-        resp = model.id != undefined ? lokiCollection.find(model.toJSON()) : lokiCollection.find();
-        //resp = model.id != undefined ? diskdb.papers.find(model) : diskdb.papers.find();
+        if( options && options.data && (model.id == undefined) ) {
+          resp = lokiCollection.find( options.data );
+        } else {
+          resp = model.id != undefined ? lokiCollection.find(model.toJSON()) : lokiCollection.find();
+          //resp = model.id != undefined ? diskdb.papers.find(model) : diskdb.papers.find();
+        }
         break;
       case "create":
         resp = lokiCollection.insertOne(model.toJSON());
