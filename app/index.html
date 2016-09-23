@@ -96,7 +96,7 @@
           <p>Tags: <%- tags %></p>
 
           <button type="button" class="edit btn btn-primary btn-xs">Edit</button>
-          
+
         </div>
       </div>
     </div>
@@ -379,10 +379,15 @@
       <p>Read and make notes with ease.</p>
     </div>
 
-    <div class="form-group" id="files">
-      <button id="clear" class="btn btn-primary">Clear</button>
-      <button id="open" class="btn btn-primary">Open</button>
-      <button id="save" class="btn btn-primary">Save</button>
+    <div class="well">
+      <h2>Clear, Load and Save</h2>
+      <div class="form-group" id="files">
+        <button type="button" id="clear" class="btn btn-primary">Clear</button>
+        <button type="button" id="open" class="btn btn-primary">Load</button>
+        <button type="button" id="save" class="btn btn-primary">Save</button>
+      </div>
+      <p>Your data is saved to a textfile of your choosing when you click Save.
+        In the meantime it is held in a local working database.</p>
     </div>
   </script>
 
