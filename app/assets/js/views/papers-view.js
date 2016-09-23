@@ -47,7 +47,7 @@ var PapersView = Backbone.View.extend({
     // For demosntration/testing we'll clear the database
     // then add a single example.
 
-    ///*
+    /*
     // Delete all existing first
     _.invoke(Papers.toArray(), 'destroy');
 

@@ -21,11 +21,9 @@ var LokiDB = new Loki('lokidb.json', {persistenceMethod:'fs', autosave: true, au
   }
 });
 
+
 // LokiJS
 var dbIdAttribute = "$loki";
-
-
-
 
 //var diskdb = require('diskdb')
 //diskdb = diskdb.connect('diskdb.json', ['papers'])
@@ -66,7 +64,7 @@ Backbone.sync = function(method, model, options) {
         }
         break;
       case "create":
-        resp = lokiCollection.insertOne(model.toJSON());
+        resp = lokiCollection.insert(model.toJSON());
         //resp = diskdb.papers.insertOne(model);
 
         break;

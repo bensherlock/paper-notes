@@ -86,7 +86,7 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><%- key %></h3>
+          <h3 class="panel-title">Key: <%- key %></h3>
         </div>
         <div class="panel-body">
           <p>Title: <%- title %></p>
@@ -94,6 +94,9 @@
           <p>Authors: <%- authors %></p>
           <p>Overview: <%- overview %></p>
           <p>Tags: <%- tags %></p>
+
+          <button type="button" class="edit btn btn-primary btn-xs">Edit</button>
+          
         </div>
       </div>
     </div>
@@ -128,7 +131,10 @@
         <div class="panel-body">
           <p>Date: <%- datetime %></p>
           <p>Text: <%- text %></p>
-          <button class="destroy btn btn-danger btn-sm">Delete</button>
+
+          <button type="button" class="view btn btn-info btn-xs">View</button>
+          <button type="button" class="destroy btn btn-danger btn-xs">Delete</button>
+
         </div>
       </div>
     </div>
@@ -152,6 +158,9 @@
         <div class="panel-body">
           <p>Date: <%- datetime %></p>
           <p>Text: <%- text %></p>
+
+          <button type="button" class="edit btn btn-primary btn-xs">Edit</button>
+
         </div>
       </div>
     </div>
@@ -194,7 +203,10 @@
           <div class="viewing">
             <p>Page Number: <%- page %></p>
             <p>Text: <%- text %></p>
-            <button class="destroy btn btn-danger btn-sm">Delete</button>
+
+            <button type="button" class="edit btn btn-primary btn-xs">Edit</button>
+            <button type="button" class="destroy btn btn-danger btn-xs">Delete</button>
+
           </div>
           <div class="editing">
             <form id="anchor-edit-form" class="form-inline">
@@ -303,13 +315,16 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title title"><%- key %></h3>
+          <h3 class="panel-title title">Key: <%- key %></h3>
         </div>
         <div class="panel-body">
           <p>Title: <%- title %></p>
           <p>Year: <%- year %></p>
           <p>Authors: <%- authors %></p>
-          <button class="destroy btn btn-danger btn-sm">Delete</button>
+
+          <button type="button" class="view btn btn-info btn-xs">View</button>
+          <button type="button" class="destroy btn btn-danger btn-xs">Delete</button>
+
         </div>
       </div>
     </div>
@@ -337,7 +352,6 @@
       </div>
       <div class="col-sm-6">
         <h2>Add New Paper</h2>
-
 
         <form id="paper-create-form" >
           <div class="form-group">

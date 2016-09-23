@@ -13,7 +13,7 @@ var AnchorsItemView = Backbone.View.extend({
   template: _.template($('#anchors-item-view-template').html()),
 
   events: {
-    'dblclick   .viewing'         : 'edit',
+    'click  .edit'              : 'edit',
     'click .destroy'            : 'clear',
 
     'submit #anchor-edit-form'  : 'onSubmit',

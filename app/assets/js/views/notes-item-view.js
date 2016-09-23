@@ -13,7 +13,7 @@ var NotesItemView = Backbone.View.extend({
   template: _.template($('#notes-item-view-template').html()),
 
   events: {
-    'click .title'  : 'clickTitle',
+    'click .view'  : 'goToView',
     'click .destroy' : 'clear',
   },
 
@@ -36,8 +36,7 @@ var NotesItemView = Backbone.View.extend({
     return this;
   },
 
-  clickTitle: function() {
-    console.log('clickTitle');
+  goToView: function() {
     Backbone.trigger('approuter:go', "/papers/" + this.model.id + "/notes/" + this.noteId);
   },
 

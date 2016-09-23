@@ -54,7 +54,7 @@ var Paper = Backbone.Model.extend({
   defaults: function() {
       return {
         key: "",
-        authors: [""],
+        authors: [],
         title: "",
         year: 2016,
         overview: "",

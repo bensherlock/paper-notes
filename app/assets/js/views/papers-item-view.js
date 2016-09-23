@@ -13,7 +13,7 @@ var PapersItemView = Backbone.View.extend({
   template: _.template($('#papers-item-view-template').html()),
 
   events: {
-    'click .title'  : 'clickTitle',
+    'click .view' : 'goToView',
     'click .destroy' : 'clear',
   },
 
@@ -29,14 +29,12 @@ var PapersItemView = Backbone.View.extend({
 
     if(this.model) {
       this.$el.html(this.template(this.model.toJSON()));
-      //this.$el.html(this.template(this.model));
     }
 
     return this;
   },
 
-  clickTitle: function() {
-    console.log('clickTitle');
+  goToView: function() {
     Backbone.trigger('approuter:go', "/papers/" + this.model.id);
   },
 

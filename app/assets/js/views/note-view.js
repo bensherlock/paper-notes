@@ -13,7 +13,7 @@ var NoteView = Backbone.View.extend({
   template: _.template($('#note-view-template').html()),
 
   events: {
-    "dblclick  .note"       : "edit",
+    "click  .edit"       : "edit",
     "click #paper"    : "toPaper",
 
     'submit #anchor-create-form' : 'onSubmit',

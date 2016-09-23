@@ -14,7 +14,7 @@ var PaperView = Backbone.View.extend({
   template: _.template($('#paper-view-template').html()),
 
   events: {
-    "dblclick "       : "edit",
+    "click  .edit"       : "edit",
 
     'submit #note-create-form' : 'onSubmit',
   },
@@ -33,7 +33,7 @@ var PaperView = Backbone.View.extend({
   render: function() {
     if(this.model) {
       this.$el.html(this.template(this.model.toJSON()));
-      
+
 
       var modelJson = this.model.toJSON();
 

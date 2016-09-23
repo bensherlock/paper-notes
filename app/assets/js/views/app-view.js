@@ -38,11 +38,14 @@ var AppView = Backbone.View.extend({
   fileclear : function() {
     console.log('AppView::fileclear');
 
-    // Delete all existing first
-    _.invoke(Papers.toArray(), 'destroy');
+    Papers.fetch({ complete: function() {
+      // Delete all existing first
+      _.invoke(Papers.toArray(), 'destroy');
 
-    // Reset papers to empty
-    Papers.reset();
+      // Reset papers to empty - no need
+      //Papers.reset([]);
+    }});
+
   },
 
   fileopen : function() {
@@ -61,18 +64,31 @@ var AppView = Backbone.View.extend({
 
   readFile : function(filepath) {
     fs.readFile(filepath, 'utf-8', function (err, data) {
-          if(err) {
-              console.log("An error ocurred reading the file :" + err.message);
-              return;
+        if(err) {
+            console.log("An error ocurred reading the file :" + err.message);
+            return;
+        }
+        // Change how to handle the file content
+        //console.log("The file content is : " + data);
+
+        var jsonThing = JSON.parse(data); // throws exception if problem
+
+        // Remove and lingering Loki meta data
+        for(var i = 0; i < jsonThing.length; i++ ) {
+          delete jsonThing[i].meta;
+          delete jsonThing[i].$loki;
+          delete jsonThing[i].order;
+        }
+
+        // Fetch update
+        Papers.fetch({ complete: function() {
+          // Delete all existing first
+          _.invoke(Papers.toArray(), 'destroy');
+
+          for(var i = 0; i < jsonThing.length; i++ ) {
+            Papers.create( jsonThing[i] );
           }
-          // Change how to handle the file content
-          //console.log("The file content is : " + data);
-
-          var jsonThing = JSON.parse(data); // throws exception if problem
-
-          // Now reset
-          // reset with the new data
-          Papers.reset(jsonThing);
+        }});
     });
   },
 
@@ -84,11 +100,20 @@ var AppView = Backbone.View.extend({
             console.log("You didn't save the file");
             return;
        }
+      // fileName is a string that contains the path and filename created in the save file dialog.
 
        // Grab the Papers as JSON text.
-       // fileName is a string that contains the path and filename created in the save file dialog.
+       var jsonObject = Papers.toJSON();
 
-       fs.writeFile(fileName, JSON.stringify(Papers), function (err) {
+       // Remove the Loki meta data
+       for(var i = 0; i < jsonObject.length; i++ ) {
+         delete jsonObject[i].meta;
+         delete jsonObject[i].$loki;
+         delete jsonObject[i].order;
+       }
+
+       // Write the file as pretty-print JSON
+       fs.writeFile(fileName, JSON.stringify(jsonObject, null, 2), function (err) {
            if(err) {
                console.log("An error ocurred creating the file "+ err.message)
            }
