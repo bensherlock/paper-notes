@@ -38,6 +38,10 @@ var PaperList = Backbone.Collection.extend({
       allTags = [].concat.apply([], allTagsArr);
     }
 
+    // http://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
+    // Remove Duplicates
+    allTags = this.uniq_fast(allTags);
+
     return allTags;
   },
 
@@ -53,8 +57,29 @@ var PaperList = Backbone.Collection.extend({
       allAuthors = [].concat.apply([], allAuthorsArr);
     }
 
+    // http://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
+    // Remove Duplicates
+    allAuthors = this.uniq_fast(allAuthors);
+
     return allAuthors;
   },
+
+
+
+  uniq_fast: function(a) {
+    var seen = {};
+    var out = [];
+    var len = a.length;
+    var j = 0;
+    for(var i = 0; i < len; i++) {
+         var item = a[i];
+         if(seen[item] !== 1) {
+               seen[item] = 1;
+               out[j++] = item;
+         }
+    }
+    return out;
+  }
 
 });
 
